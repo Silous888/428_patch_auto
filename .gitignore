@@ -7,3 +7,5 @@
 *.pyc
 
 ShibuyaTools.exe
+test.py
+credentials.py
