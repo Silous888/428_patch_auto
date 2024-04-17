@@ -16,14 +16,11 @@ def process(instance_worker):
     name_game_exe = "428 Shibuya Scramble.exe"
     gamepath = os.path.join(gamepath_directory, name_game_exe)
 
-    source_directory = "F:\\Documents\\traduction_DreamTeam\\428\\export"
-    object_directory = "F:\\Documents\\traduction_DreamTeam\\428\\object"
-
     drive_to_local.replace_every_files_text(instance_worker)
 
-    # # sm.incrementer_progression(instance_worker, 10)
+    drive_to_local.replace_en_json(instance_worker)
     drive_to_local.update_texte_progression(instance_worker, "recompilation")
-    shibuya_tools_api.import_game(gamepath, source_directory, object_directory)
+    shibuya_tools_api.import_game(gamepath, drive_to_local.EXPORT_FOLDER, drive_to_local.OBJECT_FOLDER)
 
 
 # -------------------- Main code -------------------

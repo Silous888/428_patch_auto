@@ -7,7 +7,15 @@ import googleSheetAPI
 
 TEXT_SNS_FOLDER_DRIVE = "1uubK1tqm4K5RP9KiezJfoPZ86Az5eAiw"
 
-EXPORT_FOLDER = "F:\\Documents\\traduction_DreamTeam\\428\\export"
+EN_JSON_DRIVE = "1n1U5DqSNdFNG42_PskbLrGtb1QsfL3hmRqBjEfmAucc"
+
+EXPORT_FOLDER_TEST = "F:\\Documents\\traduction_DreamTeam\\428\\export"
+
+OBJECT_FOLDER_TEST = "F:\\Documents\\traduction_DreamTeam\\428\\object"
+
+EXPORT_FOLDER = ".\\export"
+
+OBJECT_FOLDER = ".\\object"
 
 SCRIPT_FOLDER = EXPORT_FOLDER + "\\shibuya_desktop_data_core_patch.wad\\script\\en\\to.sns"
 
@@ -49,6 +57,23 @@ def replace_text_in_xml_txt(list_value_sheet, name_file):
 
         with open(filepath, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
+
+
+def replace_en_json(instance_worker):
+    file_name = "en.json"
+    filepath = EN_JSON_FOLDER + "\\" + file_name
+    instance_worker.set_text_progress(file_name)
+    list_value_sheet = googleSheetAPI.get_matrice_sheet(file_name)
+
+    with open(filepath, 'r', encoding='utf-8', ) as f:
+        data = json.load(f)
+        for i in range(len(list_value_sheet)):
+            if len(list_value_sheet[i]) <= 3:
+                continue
+            if list_value_sheet[i][0] in data:
+                data[list_value_sheet[i][0]] = list_value_sheet[i][3]
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 def replace_strange_char(text):
