@@ -26,8 +26,8 @@ _current_spreadsheet = None
 _last_sheet = None
 _last_sheet_index = None
 
-_MAX_RETRIES = 100
-_WAIT_TIME = 2
+_MAX_RETRIES = 500
+_WAIT_TIME = 10
 
 
 def __init() -> int:

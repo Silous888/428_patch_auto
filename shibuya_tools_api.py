@@ -1,7 +1,7 @@
 import subprocess
 
 
-tool_path = ".\\shibuyaTools.exe"
+TOOL_PATH = ".\\shibuyaTools.exe"
 
 
 def export_game(gamepath, export_directory):
@@ -12,7 +12,7 @@ def export_game(gamepath, export_directory):
         export_directory (str): directory where files will be extracted
     """
     shell_command = [
-        tool_path,
+        TOOL_PATH,
         "export",
         "--game-path",
         gamepath,
@@ -31,7 +31,7 @@ def import_game(gamepath, source_directory, object_directory):
         object_directory (str): temp directory
     """
     shell_command = [
-        tool_path,
+        TOOL_PATH,
         "import",
         "--game-path",
         gamepath,
