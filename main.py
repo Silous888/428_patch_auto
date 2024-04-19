@@ -6,7 +6,7 @@ import shibuya_tools_api
 
 import os
 
-# pyinstaller --onefile --noconsole --name 428_Patch_Automatique --icon=./ressource/DreamteamLogo.ico main.py
+# pyinstaller --onefile --name 428_Patch_Automatique --icon=./ressource/DreamteamLogo.ico main.py
 
 utils.import_names_files()
 

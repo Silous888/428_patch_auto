@@ -17,11 +17,19 @@ EXPORT_FOLDER = ".\\export"
 
 OBJECT_FOLDER = ".\\object"
 
+TEST = False
+
+if TEST:
+    EXPORT_FOLDER = EXPORT_FOLDER_TEST
+    OBJECT_FOLDER = OBJECT_FOLDER_TEST
+
 SCRIPT_FOLDER = EXPORT_FOLDER + "\\shibuya_desktop_data_core_patch.wad\\script\\en\\to.sns"
 
 EN_JSON_FOLDER = EXPORT_FOLDER + "\\shibuya_desktop_data_core.wad\\localization\\game"
 
 progression_actuelle = 0
+
+
 
 
 def replace_every_files_text(instance_worker):
@@ -41,19 +49,17 @@ def replace_text_in_xml_txt(list_value_sheet, name_file):
     filepath = SCRIPT_FOLDER + "\\" + name_file
     with open(filepath, 'r', encoding='utf-8') as f:
         data = json.load(f)
-        for i in range(len(list_value_sheet)):
-            if len(list_value_sheet[i]) <= 2:
-                continue
-            for item in data:
-                if item['key'] == list_value_sheet[i][1]:
-                    if len(list_value_sheet[i][2]) != 0:
-                        if list_value_sheet[i][2] == '¤':
-                            item['val'] = ""
-                        else:
-                            item['val'] = replace_strange_char(list_value_sheet[i][2])
-                    else:
-                        item['val'] = item['key']
-                    continue
+
+        it = 1
+        for item in data:
+            if len(list_value_sheet[it][2]) != 0:
+                if list_value_sheet[it][2] == '¤':
+                    item['val'] = ""
+                else:
+                    item['val'] = replace_strange_char(list_value_sheet[it][2])
+            else:
+                item['val'] = item['key']
+            it += 1
 
         with open(filepath, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
@@ -81,7 +87,7 @@ def replace_strange_char(text):
                          "001B", "0018", "0016", "00A0", "001E", "001F"]
 
     for char in list_strange_char:
-        text = text.replace(char, f"u\"\\x{char}\"")
+        text = text.replace(char, f"\\u{char}\"")
     return text
 
 
