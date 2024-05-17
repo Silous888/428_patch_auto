@@ -52,6 +52,8 @@ def replace_text_in_xml_txt(list_value_sheet, name_file):
 
         it = 1
         for item in data:
+            if len(list_value_sheet[it]) < 3:
+                continue
             if len(list_value_sheet[it][2]) != 0:
                 if list_value_sheet[it][2] == '¤':
                     item['val'] = ""
@@ -77,9 +79,23 @@ def replace_en_json(instance_worker):
             if len(list_value_sheet[i]) <= 3:
                 continue
             if list_value_sheet[i][0] in data:
-                data[list_value_sheet[i][0]] = list_value_sheet[i][3]
+                data[list_value_sheet[i][0]] = convertir_double_slash_en_simple(list_value_sheet[i][3])
     with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+
+def convertir_double_slash_en_simple(path):
+    """converti les slash en double slash dans un chaine de caractère,
+    pour éviter les problèmes
+
+    Args:
+        path (str): path windows
+
+    Returns:
+        str: path windows avec des double slash à la place des simples
+    """
+    path = path.replace("\\'", "\'")
+    return path.replace('\\n', '\n')
 
 
 def replace_strange_char(text):
